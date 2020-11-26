@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Eat</title>
+    <script src="Fruit.js"></script>
+    <script src="Human.js"></script>
+</head>
+<style>
+    div {
+        display: inline-block;
+        border: 1px solid;
+        padding: 20px;
+    }
+</style>
+<body>
+<div class="human1">
+    <p id="human-name1"></p>
+    <p id="human-gender1"></p>
+    <p id="human-weight1"></p>
+</div>
+
+<div class="fruit">
+    <p id="fruit-name"></p>
+    <p id="fruit-weight"></p>
+</div>
+
+<div class="human2">
+    <p id="human-name2"></p>
+    <p id="human-gender2"></p>
+    <p id="human-weight2"></p>
+</div>
+
+<br>
+<button onclick="eat(ngan,apple)">Ngan Eat</button>
+<button onclick="eat(an,apple)">An Eat</button>
+<script>
+    //Adam và Eva ăn hoa quả
+    //Ăn 1 miếng người tăng vài cân. hoa quả mất đi lượng tương ứng
+    //Xây dựng 2 class Human và Fruit
+    let ngan = new Human("Ngân",'Female',46);
+    let an = new Human("An",'Male',50);
+    let apple = new Fruit("Táo",20);
+
+    function displayHuman(human,id) {
+        document.getElementById('human-name'+id).innerHTML = human.name;
+        document.getElementById('human-gender'+id).innerHTML = human.gender;
+        document.getElementById('human-weight'+id).innerHTML = human.weight;
+    }
+
+    function displayFruit(fruit) {
+        document.getElementById('fruit-name').innerText = fruit.name;
+        document.getElementById('fruit-weight').innerText = fruit.weight;
+    }
+
+    function displayAll() {
+        displayHuman(ngan,1);
+        displayHuman(an,2);
+        displayFruit(apple);
+    }
+
+    function eat(human,fruit) {
+        let num = randomNumber(1,4);
+        human.eat(fruit,num);
+        checkWin(fruit);
+        displayAll();
+    }
+
+    function checkWin(fruit) {
+        if(fruit.isEmpty()){
+            alert("Ngân ăn "+ngan.foodNum +' vs An ăn ' +an.foodNum);
+        }
+    }
+
+    function randomNumber(min,max) {
+        //Phân biệt Math.floor, round, ceil;
+        return Math.floor(Math.random()*(max-min))+min;
+    }
+    displayAll();
+</script>
+</body>
+</html>

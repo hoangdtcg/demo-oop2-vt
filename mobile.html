@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Mobile</title>
+    <script src="Mobile.js"></script>
+</head>
+<style>
+    .mobile {
+        width: 260px;
+        border: 1px solid;
+        padding: 15px;
+        background-color: lightpink;
+        display: inline-block;
+    }
+
+    input {
+        width: 200px;
+    }
+    h2 {
+        text-align: center;
+    }
+    div#android {
+        background-color: violet;
+    }
+</style>
+<body>
+<div class="mobile">
+    <h2 id="iphone-name">Mobile</h2>
+    <textarea id="iphone-inbox" cols="30" rows="10" placeholder="Input..." disabled></textarea>
+    <textarea id="iphone-outbox" cols="30" rows="10" placeholder="Input..." disabled></textarea>
+    <input oninput="writeMess(iphone,this.value)" type="text" id="iphone-msg" placeholder="write message here...">
+    <button onclick="sendMess(iphone,android)">Send</button>
+</div>
+
+<div class="mobile" id="android">
+    <h2 id="android-name">Mobile</h2>
+    <textarea id="android-inbox" cols="30" rows="10" placeholder="Input..."></textarea>
+    <textarea id="android-outbox" cols="30" rows="10" placeholder="Input..."></textarea>
+    <input type="text" id="android-msg" oninput="writeMess(android,this.value)" placeholder="write message here...">
+    <button onclick="sendMess(android,iphone)">Send</button>
+</div>
+
+<script>
+
+    let iphone = new Mobile("Iphone 12 Pro Max",'iphone');
+    let android = new Mobile("Huawei P40",'android');
+
+    function displayAll() {
+        display(iphone);
+        display(android);
+    }
+
+    function writeMess(mobile,value) {
+        mobile.writeMsg(value);
+    }
+
+    function sendMess(mobile1,mobile2) {
+        mobile1.sendMsg(mobile2);
+        clearInput(mobile1);
+        displayAll();
+    }
+    function display(mobile) {
+        document.getElementById(mobile.brand+'-name').innerHTML = mobile.name;
+        document.getElementById(mobile.brand+'-inbox').innerHTML = mobile.inbox;
+        document.getElementById(mobile.brand+'-outbox').innerHTML = mobile.outbox;
+    }
+
+    function clearInput(mobile) {
+        document.getElementById(mobile.brand+'-msg').value = '';
+    }
+
+    displayAll();
+</script>
+</body>
+</html>
